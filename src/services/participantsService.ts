@@ -12,9 +12,6 @@ async function createParticipants(participants: participantsData, userId: number
     });
 
     await participantsRepository.createParticipants(participants);
-    const tableParticipants = await participantsRepository.findMany(userId, tableId);
-
-    console.log(tableParticipants); 
 }
 
 const participantsService = {

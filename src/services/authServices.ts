@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 import { authRepository } from "../repositories/authRepository.js";
 
-export type UserData = User;
+export type UserData = Omit<User, 'id'>
 
 async function createNewUser(newUserData: UserData) {
     const emailAlreadyRegistered = await authRepository.getByEmail(newUserData.email);
@@ -21,10 +21,10 @@ async function logUserIn(userData: UserData) {
 
     const passwordIsWrong = !bcrypt.compareSync(userData.password, user.password);
     if (passwordIsWrong) throw { type: "unauthorized" };
-    
+
     delete user.password;
 
-    const twelveHours = 60*60*12
+    const twelveHours = 60 * 60 * 12
     const config = { expiresIn: twelveHours }
     const token = jwt.sign(user, process.env.JWT_SECRET, config);
     return token;

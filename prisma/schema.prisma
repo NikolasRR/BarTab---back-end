@@ -15,6 +15,7 @@ model User {
   name String
   email String @unique
   password String
+  createdAt DateTime @default(now())
   tables Table[]
   participants Participant[]
 
@@ -25,21 +26,24 @@ model Table {
   id Int @id @default(autoincrement())
   name String
   user User @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
   userId Int
-  tableParticipant TableParticipant[]
   tableItem TableItem[]
+  tableParticipant Participant[]
 
   @@map("tables")
 }
 
 model Participant {
   id Int @id @default(autoincrement())
-  name String @unique
+  name String
   user User @relation(fields: [handlerId], references: [id])
   handlerId Int
-  tableParticipant TableParticipant[]
+  table Table @relation(fields: [tableId], references: [id])
+  tableId Int
   participantItem ParticipantItem[]
 
+  @@unique([name, tableId])
   @@map("participants")
 }
 
@@ -51,17 +55,6 @@ model Item {
   tableItem TableItem[]
 
   @@map("items")
-}
-
-model TableParticipant {
-  id Int @id @default(autoincrement())
-  participant Participant @relation(fields: [participantId], references: [id])
-  participantId Int
-  table Table @relation(fields: [tableId], references: [id])
-  tableId Int
-
-  @@unique([participantId, tableId])
-  @@map("tableParticipants")
 }
 
 model ParticipantItem {

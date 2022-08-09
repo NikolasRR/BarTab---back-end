@@ -28,8 +28,8 @@ model Table {
   user User @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   userId Int
-  tableItem TableItem[]
   tableParticipant Participant[]
+  Item Item[]
 
   @@map("tables")
 }
@@ -51,9 +51,12 @@ model Item {
   id Int @id @default(autoincrement())
   name String
   value Int
+  amount Int
+  table Table @relation(fields: [tableId], references: [id])
+  tableId Int
   participantItem ParticipantItem[]
-  tableItem TableItem[]
 
+  @@unique([name, tableId])
   @@map("items")
 }
 
@@ -65,14 +68,4 @@ model ParticipantItem {
   itemId Int
 
   @@map("participantItems")
-}
-
-model TableItem {
-  id Int @id @default(autoincrement())
-  table Table @relation(fields: [tableId], references: [id])
-  tableId Int
-  item Item @relation(fields: [itemId], references: [id])
-  itemId Int
-
-  @@map("tableItems")
 }

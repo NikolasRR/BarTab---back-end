@@ -1,10 +1,11 @@
 import { Router } from "express";
 
-import * as C from "../controllers/participantsControllers.js"
+import * as C from "../controllers/participantsControllers.js";
+import * as M from "../middleware/participantsMiddleware.js";
 import tokenValidation from "../middleware/tokenMiddleware.js";
 
 const participantsRouter = Router();
 
-participantsRouter.post('/participants', tokenValidation, C.createParticipants);
+participantsRouter.post('/participants', tokenValidation, M.validateParticipants, C.createParticipants);
 
 export default participantsRouter;

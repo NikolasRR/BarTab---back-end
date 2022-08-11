@@ -9,28 +9,15 @@ async function createParticipants(participantsData: participantsData) {
     )
 }
 
-async function findMany(handlerId: number, tableId: number) {
-    return await prisma.participant.findMany(
-        {
-            where: {
-                handlerId,
-                tableId
-            }
-        }
-    )
+async function findManyByTable(tableId: number) {
+    return await prisma.participant.findMany({ where: { tableId } });
 }
 
-// async function createParticipantsTableRelation(participantsData: participantsData, tableId: number) {
-//     await prisma.tableParticipant.createMany(
-//         {
-//             data: 
-//         }
-//     )
-// }
+
 
 const participantsRepository = {
     createParticipants,
-    findMany
+    findManyByTable
 }
 
 export default participantsRepository;

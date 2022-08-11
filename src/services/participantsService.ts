@@ -14,8 +14,13 @@ async function createParticipants(participants: participantsData, userId: number
     await participantsRepository.createParticipants(participants);
 }
 
+async function getParticipants(tableId: number) {
+    return await participantsRepository.findManyByTable(tableId);
+}
+
 const participantsService = {
-    createParticipants
+    createParticipants,
+    getParticipants
 };
 
 export default participantsService;

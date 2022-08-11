@@ -41,7 +41,7 @@ model Participant {
   handlerId Int
   table Table @relation(fields: [tableId], references: [id])
   tableId Int
-  participantItem ParticipantItem[]
+  itemParticipant ItemParticipant[]
 
   @@unique([name, tableId])
   @@map("participants")
@@ -52,20 +52,21 @@ model Item {
   name String
   value Int
   amount Int
+  participantsAmount Int
   table Table @relation(fields: [tableId], references: [id])
   tableId Int
-  participantItem ParticipantItem[]
+  itemParticipant ItemParticipant[]
 
-  @@unique([name, tableId])
   @@map("items")
 }
 
-model ParticipantItem {
+model ItemParticipant {
   id Int @id @default(autoincrement())
   participant Participant @relation(fields: [participantId], references: [id])
   participantId Int
   item Item @relation(fields: [itemId], references: [id])
   itemId Int
 
-  @@map("participantItems")
+  @@unique([itemId, participantId])
+  @@map("itemParticipants")
 }

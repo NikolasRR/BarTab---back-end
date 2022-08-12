@@ -6,10 +6,15 @@ import tokenValidation from "../middleware/tokenMiddleware.js";
 
 const tablesRouter = Router();
 
-tablesRouter.post('/tables', 
+tablesRouter.post('/table', 
     tokenValidation, 
     M.validateTable, 
     C.create
+);
+
+tablesRouter.get('/table',
+    tokenValidation,
+    C.get
 );
 
 export default tablesRouter;

@@ -25,9 +25,9 @@ model User {
 model Table {
   id Int @id @default(autoincrement())
   name String
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
-  userId Int
+  userId Int @unique
   tableParticipant Participant[]
   Item Item[]
 
@@ -37,9 +37,9 @@ model Table {
 model Participant {
   id Int @id @default(autoincrement())
   name String
-  user User @relation(fields: [handlerId], references: [id])
+  user User @relation(fields: [handlerId], references: [id], onDelete: Cascade)
   handlerId Int
-  table Table @relation(fields: [tableId], references: [id])
+  table Table @relation(fields: [tableId], references: [id], onDelete: Cascade)
   tableId Int
   itemParticipant ItemParticipant[]
 
@@ -53,7 +53,7 @@ model Item {
   value Int
   amount Int
   participantsAmount Int
-  table Table @relation(fields: [tableId], references: [id])
+  table Table @relation(fields: [tableId], references: [id], onDelete: Cascade)
   tableId Int
   itemParticipant ItemParticipant[]
 
@@ -62,9 +62,9 @@ model Item {
 
 model ItemParticipant {
   id Int @id @default(autoincrement())
-  participant Participant @relation(fields: [participantId], references: [id])
+  participant Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
   participantId Int
-  item Item @relation(fields: [itemId], references: [id])
+  item Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
   itemId Int
 
   @@unique([itemId, participantId])

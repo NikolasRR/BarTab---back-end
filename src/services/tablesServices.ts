@@ -3,7 +3,9 @@ import tableRepository from "../repositories/tablesRespository.js";
 
 export type CreateTableData = Omit<Table, 'id' | 'createdAt'>
 
-async function createTable(name: string, userId: number) {
+async function createNewTable(name: string, userId: number) {
+    await deleteCurrent(userId);
+
     const table: CreateTableData = {
         name: name,
         userId: userId
@@ -12,8 +14,18 @@ async function createTable(name: string, userId: number) {
     return await tableRepository.createTable(table);
 }
 
+async function deleteCurrent(userId: number) {
+    const existingTable = getCurrent(userId);
+    if (existingTable) await tableRepository.deleteCurrent(userId);
+}
+
+async function getCurrent(userId: number) {
+    return await tableRepository.findByUser(userId);
+}
+
 const tableServices = {
-    createTable
+    createNewTable,
+    getCurrent
 };
 
 export default tableServices;

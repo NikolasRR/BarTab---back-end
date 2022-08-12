@@ -1,14 +1,16 @@
+import { User } from "@prisma/client";
 import { Request, Response } from "express";
 
-import participantsService, { participantsData } from "../services/participantsService.js";
+import participantsService, { createParticipantData } from "../services/participantsService.js";
 
 
 export async function createParticipants(req: Request, res: Response) {
-    const tableId = req.params.tableId;
-    const userId: number = res.locals.user.id;
-    const participants: participantsData = req.body;
+    const tableId = Number(req.params.tableId);
+    const user: User = res.locals.user;
+    const participants: createParticipantData[] = req.body;
     
-    await participantsService.createParticipants(participants, userId, Number(tableId));
+    await participantsService.createParticipants(participants, user, tableId);
+    await participantsService.createUserAsParticipant(user, tableId);
 
     res.sendStatus(201);
 }

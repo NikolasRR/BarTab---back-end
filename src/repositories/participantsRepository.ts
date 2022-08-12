@@ -1,12 +1,16 @@
 import { prisma } from "../database.js";
-import { participantsData } from "../services/participantsService.js";
+import { createParticipantData } from "../services/participantsService.js";
 
-async function createParticipants(participantsData: participantsData) {
+async function createParticipants(participantsData: createParticipantData[]) {
     await prisma.participant.createMany(
         {
             data: participantsData
         }
     )
+}
+
+async function createParticipant(participant: createParticipantData) {
+    await prisma.participant.create({ data: participant });
 }
 
 async function findManyByTable(tableId: number) {
@@ -17,7 +21,8 @@ async function findManyByTable(tableId: number) {
 
 const participantsRepository = {
     createParticipants,
-    findManyByTable
+    findManyByTable,
+    createParticipant
 }
 
 export default participantsRepository;

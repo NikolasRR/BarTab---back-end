@@ -12,14 +12,14 @@ export type ReceivedItemData = CreateItemData & { participants: ParticipantId[] 
 export type ParticipantWithItems = {
     id: number,
     name: string,
+    total?: number
     items: Item[]
 };
 
-export type ItemWithParticipantsAmount = {
-    id: number,
-    name: string,
-    participants: number
-}
+export type TableItemsWithTotal = { 
+    total: number,
+    items: Item[] 
+};
 
 
 async function createItems(items: ReceivedItemData[], tableId: number) {
@@ -56,11 +56,30 @@ async function createItemParticipantRelation(items: ReceivedItemData[], tableId:
 }
 
 async function getTableItems(tableId: number) {
-    return await itemsRepository.findMany(tableId)
+    const result = await itemsRepository.findMany(tableId);
+    return calculateTableTotal(result);
+}
+
+function calculateTableTotal(items: Item[]) {
+    let total = 0;
+    items.forEach(item => total += (item.value * item.amount));
+    const data: TableItemsWithTotal = {
+        total: total,
+        items: items
+    };
+    return data;
 }
 
 async function getParticipantsItems(tableId: number) {
-    return await itemsRepository.findParticipantsItems(tableId);
+    const result =  await itemsRepository.findParticipantsItems(tableId);
+    result.forEach(pi => calculateParticipantTotal(pi));
+    return result;
+}
+
+function calculateParticipantTotal(pi: ParticipantWithItems) {
+    let total = 0;
+    pi.items.forEach(item => total += (item.value * item.amount) / item.participantsAmount);
+    pi.total = Math.round(total);
 }
 
 const itemsService = {

@@ -16,5 +16,5 @@ export async function get(req: Request, res: Response) {
 
     const table = await tableServices.getCurrent(userId);
 
-    res.send(table);
+    res.send(table).status(200);
 }

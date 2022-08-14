@@ -15,5 +15,6 @@ export async function signIn(req: Request, res: Response) {
 
     const token = await authService.logUserIn(user);
 
-    res.send({ token: token });
+    res.cookie('token', token, { httpOnly: true, sameSite: "none", secure: true });
+    res.sendStatus(200);
 }

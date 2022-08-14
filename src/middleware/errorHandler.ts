@@ -19,7 +19,7 @@ export default async function errorHandler(error: error, req: Request, res: Resp
             code = 422;
             if (error.details === "token") error.message = "missing token";
             if (error.details === "jwt") error.message = "token invalid or expired";
-            if (error.details === "groupBy") error.message = "group by clause missing";
+            if (error.details === "table") error.message = "tableId missing or unvalid";
             break;
         case "unauthorized":
             code = 401;

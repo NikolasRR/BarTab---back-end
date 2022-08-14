@@ -25,7 +25,7 @@ async function logUserIn(userData: UserData) {
     delete user.password;
 
     const oneWeek = 60 * 60 * 24 * 7;
-    const config = { expiresIn: oneWeek }
+    const config = { expiresIn: oneWeek };
     const token = jwt.sign(user, process.env.JWT_SECRET, config);
     return token;
 }

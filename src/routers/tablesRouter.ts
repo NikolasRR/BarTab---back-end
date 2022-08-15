@@ -17,4 +17,9 @@ tablesRouter.get('/table',
     C.get
 );
 
+tablesRouter.delete('/table',
+    tokenValidation,
+    C.deleteCurent
+);
+
 export default tablesRouter;

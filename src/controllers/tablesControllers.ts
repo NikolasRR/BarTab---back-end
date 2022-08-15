@@ -18,3 +18,11 @@ export async function get(req: Request, res: Response) {
 
     res.send(table).status(200);
 }
+
+export async function deleteCurent(req: Request, res: Response) {
+    const userId: number = res.locals.user.id;
+
+    await tableServices.deleteCurrent(userId);
+
+    res.sendStatus(200);
+}

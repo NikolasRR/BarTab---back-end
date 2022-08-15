@@ -15,7 +15,7 @@ async function createNewTable(name: string, userId: number) {
 }
 
 async function deleteCurrent(userId: number) {
-    const existingTable = getCurrent(userId);
+    const existingTable = await getCurrent(userId);
     if (existingTable) await tableRepository.deleteCurrent(userId);
 }
 
@@ -25,7 +25,8 @@ async function getCurrent(userId: number) {
 
 const tableServices = {
     createNewTable,
-    getCurrent
+    getCurrent,
+    deleteCurrent
 };
 
 export default tableServices;

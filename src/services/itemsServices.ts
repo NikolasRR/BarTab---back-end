@@ -26,7 +26,7 @@ async function createItems(items: ReceivedItemData[], tableId: number) {
     const itemsData: CreateItemData[] = items.map(item => {
         return {
             tableId: tableId,
-            value: (item.value * 100),
+            value: Math.round(item.value * 100),
             name: item.name,
             amount: item.amount,
             participantsAmount: item.participants.length

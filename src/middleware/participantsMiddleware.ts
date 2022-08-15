@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 
 import tableRepository from "../repositories/tablesRespository.js";
 import { participantsSchema } from "../schemas/participantsSchema.js";
-import { createParticipantData } from "../services/participantsService.js";
+import { createParticipantData } from "../services/participantsServices.js";
 
 export async function validateParticipants(req: Request, res: Response, next: NextFunction) {
     const participants: createParticipantData[] = req.body;

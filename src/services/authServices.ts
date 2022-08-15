@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 import authRepository from "../repositories/authRepository.js";
 
-export type UserData = Omit<User, 'id'>
+export type UserData = Omit<User, 'id' | 'createdAt'>
 
 async function createNewUser(newUserData: UserData) {
     const emailAlreadyRegistered = await authRepository.getByEmail(newUserData.email);

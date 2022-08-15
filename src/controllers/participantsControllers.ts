@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
 import { Request, Response } from "express";
 
-import participantsService, { createParticipantData } from "../services/participantsService.js";
+import participantsServices, { createParticipantData } from "../services/participantsServices.js";
 
 
 export async function createParticipants(req: Request, res: Response) {
@@ -9,8 +9,8 @@ export async function createParticipants(req: Request, res: Response) {
     const user: User = res.locals.user;
     const participants: createParticipantData[] = req.body;
     
-    await participantsService.createParticipants(participants, user, tableId);
-    await participantsService.createUserAsParticipant(user, tableId);
+    await participantsServices.createParticipants(participants, user.id, tableId);
+    await participantsServices.createUserAsParticipant(user, tableId);
 
     res.sendStatus(201);
 }
@@ -18,6 +18,6 @@ export async function createParticipants(req: Request, res: Response) {
 export async function getParticipants(req: Request, res: Response) {
     const tableId = Number(req.params.tableId);
 
-    const participants = await participantsService.getParticipants(tableId);
+    const participants = await participantsServices.getParticipants(tableId);
     res.send(participants);
 }

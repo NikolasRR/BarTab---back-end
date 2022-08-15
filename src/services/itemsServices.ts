@@ -26,7 +26,7 @@ async function createItems(items: ReceivedItemData[], tableId: number) {
     const itemsData: CreateItemData[] = items.map(item => {
         return {
             tableId: tableId,
-            value: Math.round(item.value * 100),
+            value: (item.value * 100),
             name: item.name,
             amount: item.amount,
             participantsAmount: item.participants.length
@@ -82,11 +82,11 @@ function calculateParticipantTotal(pi: ParticipantWithItems) {
     pi.total = Math.round(total);
 }
 
-const itemsService = {
+const itemsServices = {
     createItems,
     createItemParticipantRelation,
     getTableItems,
     getParticipantsItems
 };
 
-export default itemsService;
+export default itemsServices;

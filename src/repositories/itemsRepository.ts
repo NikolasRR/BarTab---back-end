@@ -1,5 +1,5 @@
 import { prisma } from "../database.js";
-import { CreateItemParticipantData, CreateItemData, ParticipantWithItems } from "../services/itemsService.js";
+import { CreateItemParticipantData, CreateItemData, ParticipantWithItems } from "../services/itemsServices.js";
 
 async function createItems(items: CreateItemData[]) {
     await prisma.item.createMany(

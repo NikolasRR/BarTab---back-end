@@ -1,5 +1,5 @@
 import { prisma } from "../database.js";
-import { createParticipantData } from "../services/participantsService.js";
+import { createParticipantData } from "../services/participantsServices.js";
 
 async function createParticipants(participantsData: createParticipantData[]) {
     await prisma.participant.createMany(

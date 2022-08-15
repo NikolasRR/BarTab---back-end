@@ -4,9 +4,9 @@ import participantsRepository from "../repositories/participantsRepository.js";
 
 export type createParticipantData = Omit<Participant, "id">;
 
-async function createParticipants(participants: createParticipantData[], user: User, tableId: number) {
+async function createParticipants(participants: createParticipantData[], userId: number, tableId: number) {
     participants.forEach(participant => {
-        participant.handlerId = user.id;
+        participant.handlerId = userId;
         participant.tableId = tableId;
     });
 

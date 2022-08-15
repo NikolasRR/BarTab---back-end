@@ -15,4 +15,8 @@ authRouter.post('/sign-in',
     C.signIn
 );
 
+authRouter.post('/sign-off', 
+    C.signOff
+);
+
 export default authRouter;

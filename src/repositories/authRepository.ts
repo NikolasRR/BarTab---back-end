@@ -10,7 +10,9 @@ async function create(newUserData: UserData) {
     await prisma.user.create({ data: newUserData });
 }
 
-export const authRepository = {
+const authRepository = {
     getByEmail,
     create
-}
+};
+
+export default authRepository;

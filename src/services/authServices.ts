@@ -2,7 +2,7 @@ import { User } from "@prisma/client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-import { authRepository } from "../repositories/authRepository.js";
+import authRepository from "../repositories/authRepository.js";
 
 export type UserData = Omit<User, 'id'>
 
@@ -30,7 +30,9 @@ async function logUserIn(userData: UserData) {
     return token;
 }
 
-export const authService = {
+const authService = {
     createNewUser,
     logUserIn
 };
+
+export default authService;

@@ -12,7 +12,6 @@ export default async function errorHandler(error: error, req: Request, res: Resp
     switch (error.type) {
         case "conflict":
             code = 409;
-            if (error.details === "test link") error.message = "link already registered";
             if (error.details === "email") error.message = "email not found";
             break;
         case "request format":
@@ -27,10 +26,6 @@ export default async function errorHandler(error: error, req: Request, res: Resp
             break;
         case "not found":
             code = 404;
-            if (error.details === "discipline") error.message = "discipline not found";
-            if (error.details === "teacher") error.message = "teacher not found";
-            if (error.details === "category") error.message = "category not found";
-            if (error.details === "email") error.message = "email not found";
             break;
         default:
             code = 500;

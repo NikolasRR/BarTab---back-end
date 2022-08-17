@@ -11,7 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ credentials: true, origin: ["http://localhost:3000", "https://vercel.com/nikolasrr/bar-tab-front-end"] }));
+app.use(cors({ credentials: true, origin: ["http://localhost:3000", "https://bar-tab-front-end.vercel.app"] }));
 app.use(router);
 app.use(errorHandler);
 

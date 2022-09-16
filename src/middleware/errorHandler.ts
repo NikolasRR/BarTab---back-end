@@ -12,7 +12,7 @@ export default async function errorHandler(error: error, req: Request, res: Resp
     switch (error.type) {
         case "conflict":
             code = 409;
-            if (error.details === "email") error.message = "email not found";
+            if (error.details === "email") error.message = "email already registered";
             break;
         case "request format":
             code = 422;

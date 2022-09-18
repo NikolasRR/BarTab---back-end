@@ -2,6 +2,10 @@
 
 ---
 
+### Deploy
+
+https://bar-tab-front-end.vercel.app
+
 ### Download dependencies
 
 bash `npm i` on terminal

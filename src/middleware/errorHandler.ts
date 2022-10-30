@@ -17,7 +17,7 @@ export default async function errorHandler(error: error, req: Request, res: Resp
         case "request format":
             code = 422;
             if (error.details === "token") error.message = "missing token";
-            if (error.details === "jwt") error.message = "token invalid or expired";
+            if (error.details === "jwt") error.message = "session expired";
             if (error.details === "table") error.message = "tableId missing or unvalid";
             break;
         case "unauthorized":
@@ -26,6 +26,7 @@ export default async function errorHandler(error: error, req: Request, res: Resp
             break;
         case "not found":
             code = 404;
+            error.message = "email not found";
             break;
         default:
             code = 500;

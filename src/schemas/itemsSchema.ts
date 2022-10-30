@@ -7,7 +7,8 @@ export const itemsSchema = Joi.array().items(
         value: Joi.number().required(),
         participants: Joi.array().items(
             Joi.object({
-                id: Joi.number().required()
+                id: Joi.number().required(),
+                name: Joi.string().required()
             })
         )
     })

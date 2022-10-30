@@ -6,8 +6,8 @@ export type CreateItemParticipantData = Omit<ItemParticipant, "id">;
 
 export type CreateItemData = Omit<Item, "id">;
 
-type ParticipantId = { id: number };
-export type ReceivedItemData = CreateItemData & { participants: ParticipantId[] };
+type Participant = { id: number, name: string };
+export type ReceivedItemData = CreateItemData & { participants: Participant[] };
 
 export type ParticipantWithItems = {
     id: number,
